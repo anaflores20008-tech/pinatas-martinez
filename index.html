@@ -1,0 +1,699 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piñatas Martínez | San Jerónimo, Comayagua</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff007f;
+            --secondary: #7928ca;
+            --yellow: #ffde59;
+            --bg: #090a10;
+            --card-bg: #161824;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            padding: 3.5rem 1.5rem 2rem;
+            background: linear-gradient(135deg, rgba(121, 40, 202, 0.4) 0%, rgba(255, 0, 127, 0.3) 100%);
+            border-bottom: 2px solid rgba(255, 0, 127, 0.3);
+        }
+
+        header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+        }
+
+        header h1 span {
+            color: var(--yellow);
+        }
+
+        .bienvenida-texto {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            max-width: 700px;
+            margin: 0 auto 1.2rem;
+            line-height: 1.6;
+        }
+
+        .ubicacion-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--yellow), #ff9100);
+            color: #000;
+            padding: 0.4rem 1.2rem;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            box-shadow: 0 4px 15px rgba(255, 222, 89, 0.4);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 1.2rem;
+            background: rgba(22, 24, 36, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 0.6rem 1.2rem;
+            border-radius: 35px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover, nav button.activo {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        .seccion-tab {
+            display: none;
+        }
+
+        .seccion-tab.activa {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.3rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ff007f, #ffde59);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: #a0aec0;
+            font-size: 1.05rem;
+        }
+
+        .grid-catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .card-producto {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 0, 127, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+        }
+
+        .card-producto:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 12px 35px rgba(255, 0, 127, 0.4);
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-producto:hover .card-img-container img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .card-tag {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--yellow);
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-producto h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .card-producto p {
+            font-size: 0.95rem;
+            color: #cbd5e0;
+            line-height: 1.5;
+        }
+
+        .eventos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .evento-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(255, 222, 89, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: left;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .evento-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--yellow);
+        }
+
+        .evento-card h3 {
+            color: var(--yellow);
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .evento-card p {
+            color: #cbd5e0;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        .btn-card:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+
+        .inicio-hero-card {
+            background: linear-gradient(135deg, #161824, #221c35);
+            border: 2px solid var(--secondary);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            box-shadow: 0 15px 40px rgba(121, 40, 202, 0.4);
+        }
+
+        .inicio-hero-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .inicio-hero-card p {
+            font-size: 1.15rem;
+            color: #cbd5e0;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-explorar-grande {
+            background: linear-gradient(135deg, var(--yellow), #ff9100);
+            color: #000;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 40px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 222, 89, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-explorar-grande:hover {
+            transform: scale(1.05);
+        }
+
+        .tendencias-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .tendencias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tendencia-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 222, 89, 0.3);
+            padding: 1.5rem;
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+
+        .tendencia-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 222, 89, 0.08);
+        }
+
+        .tendencia-card h4 {
+            color: var(--yellow);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tendencia-card p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+        }
+
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2rem;
+        }
+
+        .testimonio-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(255, 222, 89, 0.2);
+            padding: 2rem;
+            border-radius: 20px;
+        }
+
+        .testimonio-card p {
+            color: #e2e8f0;
+            font-style: italic;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .testimonio-autor {
+            font-weight: 700;
+            color: var(--yellow);
+            font-size: 0.95rem;
+        }
+
+        .pedido-box {
+            background: var(--card-bg);
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 2px solid rgba(255, 222, 89, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--yellow);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 0.9rem;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: #090a10;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-enviar {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: #000;
+            border: none;
+            width: 100%;
+            padding: 1.1rem;
+            border-radius: 14px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+            transition: opacity 0.3s, transform 0.2s;
+        }
+
+        .btn-enviar:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
+        }
+
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+            z-index: 9999;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+
+        .whatsapp-flotante:hover {
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: #a0aec0;
+            margin-top: 4rem;
+            background: rgba(16, 18, 28, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>✨ Piñatas <span>Martínez</span> ✨</h1>
+        <p class="bienvenida-texto">Hacemos realidad tus celebraciones con los diseños más creativos y coloridos para cada momento especial.</p>
+        <div class="ubicacion-badge">📍 San Jerónimo, Comayagua</div>
+    </header>
+
+    <nav>
+        <button onclick="cambiarTab('inicio', this)" class="activo">Inicio / Bienvenida</button>
+        <button onclick="cambiarTab('pinatas', this)">Piñatas por Evento</button>
+        <button onclick="cambiarTab('arreglos', this)">Arreglos & Dulces</button>
+        <button onclick="cambiarTab('galeria', this)">Nuestros Trabajos</button>
+        <button onclick="cambiarTab('personalizado', this)">Mandar mi Propio Diseño</button>
+    </nav>
+
+    <div class="container">
+        
+        <div id="inicio" class="seccion-tab activa">
+            <div class="inicio-hero-card">
+                <h2>¡Bienvenidos a Piñatas Martínez!</h2>
+                <p>¿Buscas sorprender en tu próxima fiesta o fecha especial? Diseñamos piñatas artesanales únicas y arreglos llenos de detalles hechos a tu medida. ¡Haz que tu evento sea inolvidable!</p>
+                <button class="btn-explorar-grande" onclick="cambiarTab('pinatas', document.querySelectorAll('nav button')[1])">🚀 Ver Tipos de Eventos</button>
+            </div>
+
+            <div class="tendencias-container">
+                <div class="section-header" style="margin-bottom: 1.5rem;">
+                    <h2>🔥 Temáticas Más Pedidas</h2>
+                    <p>Las tendencias que están arrasando en todas las fiestas</p>
+                </div>
+                <div class="tendencias-grid">
+                    <div class="tendencia-card">
+                        <h4>Estilo Coquette</h4>
+                        <p>Moños, tonos pasteles y diseños delicados llenos de elegancia.</p>
+                    </div>
+                    <div class="tendencia-card">
+                        <h4>Superhéroes & Animación</h4>
+                        <p>Los personajes favoritos de los pequeños recreados a mano.</p>
+                    </div>
+                    <div class="tendencia-card">
+                        <h4>Números con Luz / Textura</h4>
+                        <p>Ideales para cumpleaños de adultos y aniversarios memorables.</p>
+                    </div>
+                    <div class="tendencia-card">
+                        <h4>San Valentín y Aniversarios</h4>
+                        <p>Corazones tridimensionales y cajas sorpresa románticas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <div class="section-header" style="margin-bottom: 1rem;">
+                    <h2>⭐ Lo que dicen nuestros clientes</h2>
+                    <p>La felicidad de quienes confían en nuestro trabajo</p>
+                </div>
+                <div class="testimonios-grid">
+                    <div class="testimonio-card">
+                        <p>"Encargué una piñata temática para el cumpleaños de mi hijo y quedó idéntica a lo que pedí. El material es súper resistente y el diseño hermoso. ¡100% recomendada!"</p>
+                        <div class="testimonio-autor">- Paola M. (San Jerónimo)</div>
+                    </div>
+                    <div class="testimonio-card">
+                        <p>"Los arreglos de dulces son finísimos y se nota el amor que le ponen a los detalles. Me salvaron para un regalo de aniversario de última hora."</p>
+                        <div class="testimonio-autor">- Carlos R.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pinatas" class="seccion-tab">
+            <div class="section-header">
+                <h2>Piñatas Creadas para Cada Tipo de Evento</h2>
+                <p>Elaboramos diseños personalizados adaptados a la temática y estilo de tu celebración</p>
+            </div>
+            <div class="eventos-grid">
+                <div class="evento-card">
+                    <h3>🎈 Fiestas Infantiles</h3>
+                    <p>Diseños divertidos de personajes animados, animales de granja, superhéroes y princesas hechos a la medida para los consentidos del hogar.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Piñata para Fiesta Infantil')">Cotizar para Fiesta Infantil</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>🎂 Cumpleaños de Adultos & Aniversarios</h3>
+                    <p>Números gigantes decorados, estilos elegantes tipo coquette, letras personalizadas y temáticas modernas para festejar en grande.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Piñata para Cumpleaños de Adulto')">Cotizar Cumpleaños / Aniversario</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>💖 San Valentín & Fechas Románticas</h3>
+                    <p>Corazones tridimensionales, cajas sorpresa, ositos y detalles llenos de color y amor para sorprender a esa persona especial.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Piñata San Valentín / Romántica')">Cotizar Fecha Especial</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>🎉 Eventos Especiales & Graduaciones</h3>
+                    <p>Piñatas temáticas para despedidas de soltera, revelación de género, graduaciones y eventos corporativos totalmente personalizados.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Piñata para Evento Especial')">Cotizar Evento Especial</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="arreglos" class="seccion-tab">
+            <div class="section-header">
+                <h2>Arreglos y Dulces para Cada Ocasión</h2>
+                <p>Detalles únicos diseñados para enamorar y sorprender a tus seres queridos</p>
+            </div>
+            <div class="eventos-grid">
+                <div class="evento-card">
+                    <h3>🌹 Aniversarios & Romance</h3>
+                    <p>Cajas de rosas elegantes acompañadas de chocolates finos, dedicatorias personalizadas y detalles perfectos para parejas.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Arreglo Romántico / Aniversario')">Cotizar Arreglo Romántico</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>🎈 Cumpleaños & Celebraciones</h3>
+                    <p>Globos burbuja gigantes con vinil personalizado, bases llenas de golosinas variadas y arreglos llenos de color y alegría.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Arreglo de Cumpleaños con Dulces')">Cotizar Arreglo de Cumpleaños</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>🍫 Detalles Sorpresa & Amistad</h3>
+                    <p>Bouquets de dulces, cajitas sorpresa temáticas y arreglos creativos ideales para regalar en cualquier fecha del año.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Arreglo Sorpresa / Amistad')">Cotizar Detalle Sorpresa</button>
+                </div>
+
+                <div class="evento-card">
+                    <h3>🎓 Graduaciones & Fechas Cívicas</h3>
+                    <p>Arreglos con temática especial para felicitar logros académicos, graduaciones escolares o profesionales y eventos institucionales.</p>
+                    <button class="btn-card" onclick="seleccionarItem('Arreglo para Graduación / Logros')">Cotizar Arreglo de Graduación</button>
+                </div>
+            </div>
+        </div>
+      
+        <div id="galeria" class="seccion-tab">
+            <div class="section-header">
+                <h2>📸 Galería de Nuestros Trabajos</h2>
+                <p>Una muestra real de las creaciones entregadas a nuestros clientes en San Jerónimo</p>
+            </div>
+            <div class="grid-catalogo">
+                <div class="card-producto">
+                    <div class="card-img-container">
+                        <img src="vaca.jpeg" alt="Piñata Temática Vaca">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-tag">Trabajo Realizado</div>
+                        <h3>Piñata Temática Vaca</h3>
+                        <p>Diseño exclusivo hecho a mano bajo pedido especial.</p>
+                    </div>
+                </div>
+                <div class="card-producto">
+                    <div class="card-img-container">
+                        <img src="unicornio.jpeg" alt="Piñata Unicornio Mágico">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-tag">Trabajo Realizado</div>
+                        <h3>Piñata Unicornio Mágico</h3>
+                        <p>Detalles metalizados y capas de papel fino artesanal.</p>
+                    </div>
+                </div>
+                <div class="card-producto">
+                    <div class="card-img-container">
+                        <img src="moto.jpeg" alt="Piñata Moto Deportiva">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-tag">Trabajo Realizado</div>
+                        <h3>Piñata Moto Deportiva</h3>
+                        <p>Estructura detallada y personalizada para amante de las motos.</p>
+                    </div>
+                </div>
+                <div class="card-producto">
+                    <div class="card-img-container">
+                        <img src="aguacate.jpeg" alt="Piñata Aguacate Sonriente">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-tag">Trabajo Realizado</div>
+                        <h3>Piñata Aguacate Sonriente</h3>
+                        <p>Ideal para fiestas infantiles llenas de alegría y color.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <div id="personalizado" class="seccion-tab">
+            <div class="pedido-box">
+                <div class="section-header" style="margin-bottom: 1.5rem;">
+                    <h2>¿Tienes un Diseño en Mente?</h2>
+                    <p>Mándanos los detalles exactos y en Piñatas Martínez lo hacemos realidad</p>
+                </div>
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label>Tu Nombre:</label>
+                        <input type="text" name="nombreCliente" id="nombreCliente" required placeholder="Escribe tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label>¿Qué producto deseas?</label>
+                        <select name="tipoProducto" id="tipoProducto">
+                            <option value="Piñata Personalizada">Piñata 100% Personalizada</option>
+                            <option value="Arreglo de Dulces Personalizado">Arreglo con Dulces Personalizado</option>
+                            <option value="Combo Piñata + Arreglo">Combo Especial (Piñata + Arreglo)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha del Evento / Entrega:</label>
+                        <input type="date" name="fechaEvento" id="fechaEvento" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Describe tu idea, colores o diseño que deseas:</label>
+                        <textarea name="descripcionIdea" id="descripcionIdea" rows="4" required placeholder="Ej. Quiero una piñata de color rosado..."></textarea>
+                    </div>
+                    <button type="submit" name="guardar_pedido" class="btn-enviar">📲 Guardar y Enviar Pedido por WhatsApp</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="https://api.whatsapp.com/send?phone=50494009624&text=¡Hola!%20Deseo%20más%20información%20sobre%20las%20piñatas%20y%20arreglos%20en%20Piñatas%20Martínez." class="whatsapp-flotante" target="_blank" title="Escríbenos por WhatsApp">
+        💬
+    </a>
+
+    <footer>
+        <p>&copy; 2026 Piñatas Martínez • San Jerónimo, Comayagua • ¡Diseños que enamoran!</p>
+    </footer>
+
+    <script>
+        function cambiarTab(idSeccion, boton) {
+            document.querySelectorAll('.seccion-tab').forEach(tab => tab.classList.remove('activa'));
+            document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('activo'));
+            document.getElementById(idSeccion).classList.add('activa');
+            if(boton) boton.classList.add('activo');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function seleccionarItem(nombreModelo) {
+            cambiarTab('personalizado', document.querySelectorAll('nav button')[4]);
+            document.getElementById('tipoProducto').value = "Modelo seleccionado: " + nombreModelo;
+            document.getElementById('descripcionIdea').value = "Hola, me interesa este diseño: " + nombreModelo + ". Quisiera personalizarlo con los siguientes detalles: ";
+        }
+    </script>
+</body>
+</html>
